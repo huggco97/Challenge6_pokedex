@@ -1,16 +1,8 @@
 import MySQLdb
+from pokedex import obtener_conexion
 
-def obtener_conexion():
-    try:
-        return MySQLdb.connect(
-            host="localhost", 
-            user="root", 
-            passwd="skylinegtr34", 
-            db="pokedexDB"
-        )
-    except MySQLdb.OperationalError as e:
-        print(f"Error al conectar a la base de datos: {e}")
-        return None
+conn = obtener_conexion()
+cursor = conn.cursor()  
 
 def agregar_intermedia(id_entrenador, id_pokemon):
     conn = obtener_conexion()
@@ -61,11 +53,12 @@ def eliminar_intermedia(id_intermedia):
             cursor.close()
             conn.close()
 
-
+agregar_intermedia(1,1)
 agregar_intermedia(2, 2)
-agregar_intermedia(1, 1)
+agregar_intermedia(2, 12)
 agregar_intermedia(3, 3)
-
+agregar_intermedia(3,11)
+#agregar_intermedia(3, 2)
 
 equipo = mostrar_intermedia()
 if equipo:

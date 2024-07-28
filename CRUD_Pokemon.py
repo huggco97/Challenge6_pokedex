@@ -1,16 +1,8 @@
 import MySQLdb
+from pokedex import obtener_conexion
 
-def obtener_conexion():
-    try:
-        return MySQLdb.connect(
-            host="localhost", 
-            user="root", 
-            passwd="skylinegtr34", 
-            db="pokedexDB"
-        )
-    except MySQLdb.OperationalError as e:
-        print(f"Error al conectar a la base de datos: {e}")
-        return None
+conn = obtener_conexion()
+cursor = conn.cursor()  
 
 def agregar_pokemon(nombre_poke, tipo, habilidad, estadisticas):
     conn = obtener_conexion()
@@ -67,18 +59,27 @@ def eliminar_pokemon(id):
             conn.close()
 
 # Llamando a la funcion para agregar un pokemon
-#agregar_pokemon("perro viralata", "delmer", "ataque sorpresa", 15)
+agregar_pokemon("perro viralata", "delmer", "ataque sorpresa", 15)
 
 # Llamando a la funcion para actualizar un pokemon
-#actualizar_pokemon(153, "perro viralata", "delmer", "ataque sorpresa", 100)
+# actualizar_pokemon(153, "perro viralata", "delmer", "ataque sorpresa", 100)
 
 #Lamado a la funcion para eliminar un pokemon 
-eliminar_pokemon(152)
+#eliminar_pokemon(151)
 
-# Mostrando la tabla de pokemones
+#Mostrando la tabla de pokemones
 pokemones = mostrar_pokemones()
+pokemones_vistos = set()
+
 if pokemones:
     for pokemon in pokemones:
-        print(f"ID: {pokemon['id_pokemon']}, Nombre: {pokemon['nombre_poke']}, Tipo: {pokemon['tipo']}, Estadisticas: {pokemon['estadisticas']}")
+        # Crear una tupla única para cada pkemon
+        pokemon_tupla = (pokemon['id_pokemon'], pokemon['nombre_poke'], pokemon['tipo'], pokemon['habilidad'], pokemon['estadisticas'])
+        
+        # Verificar si la tupla ya está en el conjunto
+        if pokemon_tupla not in pokemones_vistos:
+            # Si no está, agregarla al conjunto y mostrar los datos
+            pokemones_vistos.add(pokemon_tupla)
+            print(f"ID: {pokemon['id_pokemon']}, Nombre: {pokemon['nombre_poke']}, Tipo: {pokemon['tipo']}, Habilidad: {pokemon['habilidad']}, Estadisticas: {pokemon['estadisticas']}")
 else:
     print("No se encontraron pokemones.")

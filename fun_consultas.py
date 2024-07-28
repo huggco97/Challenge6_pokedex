@@ -1,16 +1,8 @@
 import MySQLdb
+from pokedex import obtener_conexion
 
-def obtener_conexion():
-    try:
-        return MySQLdb.connect(
-            host="localhost", 
-            user="root", 
-            passwd="skylinegtr34", 
-            db="pokedexDB"
-        )
-    except MySQLdb.OperationalError as e:
-        print(f"Error al conectar a la base de datos: {e}")
-        return None
+conn = obtener_conexion()
+cursor = conn.cursor()  
 
 def eliminar_pokemon_y_relaciones(id_pokemon):
     conn = obtener_conexion()
@@ -84,12 +76,12 @@ def mostrar_batallas_detalladas():
 #--------------------------------------------------------------------------------------------------------------------
 
 # Eliminar un Pokémon y sus registros relacionados
-eliminar_pokemon_y_relaciones(1)  # Elimina el Pokémon con id 1 y los registros relacionados
+eliminar_pokemon_y_relaciones(11)  
 
 # Mostrar Pokémon y sus entrenadores
-pokemones_y_entrenadores = mostrar_pokemones_y_entrenadores()
-for item in pokemones_y_entrenadores:
-    print(f"ID Pokémon: {item['id_pokemon']}, Nombre Pokemon: {item['nombre_poke']}, Entrenador: {item['nombre_entr']}, Ciudad: {item['ciudad']}")
+# pokemones_y_entrenadores = mostrar_pokemones_y_entrenadores()
+# for item in pokemones_y_entrenadores:
+#     print(f"ID Pokémon: {item['id_pokemon']}, Nombre Pokmon: {item['nombre_poke']}, Entrenador: {item['nombre_entr']}, Ciudad: {item['ciudad']}")
 
 # Mostrar detalles de las batallas
 batallas_detalladas = mostrar_batallas_detalladas()

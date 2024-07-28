@@ -17,7 +17,7 @@ def obtener_conexion():
 conn = obtener_conexion()
 cursor = conn.cursor()  
 
-# Definición de la función para cargar Pokémon
+#función para cargar Pokémon
 def cargar_pokemon(id):
     api_url = f"https://pokeapi.co/api/v2/pokemon/{id}/"
     response = requests.get(api_url)

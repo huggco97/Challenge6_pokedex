@@ -1,16 +1,8 @@
 import MySQLdb
+from pokedex import obtener_conexion
 
-def obtener_conexion():
-    try:
-        return MySQLdb.connect(
-            host="localhost", 
-            user="root", 
-            passwd="skylinegtr34", 
-            db="pokedexDB"
-        )
-    except MySQLdb.OperationalError as e:
-        print(f"Error al conectar a la base de datos: {e}")
-        return None
+conn = obtener_conexion()
+cursor = conn.cursor()  
 
 def validar_relacion(id_entrenador, id_pokemon):
     conn = obtener_conexion()
@@ -76,6 +68,7 @@ def eliminar_batalla(id_batalla):
             cursor.close()
             conn.close()
 
-#agregar_batalla(1, 2, 1, 2, '2024-07-21', 'gano Ash')
-#agregar_batalla(1, 3, 1, 3, '2024-07-21', 'gano Brock')
-#eliminar_batalla(1)
+agregar_batalla(2, 3, 12, 11, '2024-07-21', 'gano Ash')
+agregar_batalla(2, 3, 2, 3, '2024-07-21', 'gano Brock')
+# eliminar_batalla(8)
+# eliminar_batalla(9)

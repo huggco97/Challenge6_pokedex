@@ -1,17 +1,9 @@
 
 import MySQLdb
+from pokedex import obtener_conexion
 
-def obtener_conexion():
-    try:
-        return MySQLdb.connect(
-            host="localhost", 
-            user="root", 
-            passwd="skylinegtr34", 
-            db="pokedexDB"
-        )
-    except MySQLdb.OperationalError as e:
-        print(f"Error al conectar a la base de datos: {e}")
-        return None
+conn = obtener_conexion()
+cursor = conn.cursor()  
 
 def agregar_entrenador(nombre_entr, ciudad, medallas):
     conn = obtener_conexion()
